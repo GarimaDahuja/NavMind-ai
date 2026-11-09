@@ -3,6 +3,9 @@ NavMind AI - Dashboard Page
 Overview statistics and project summary.
 """
 
+import warnings
+warnings.filterwarnings("ignore", message=".*use_container_width.*")
+
 import streamlit as st
 import numpy as np
 import plotly.graph_objects as go

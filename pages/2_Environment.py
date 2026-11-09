@@ -4,6 +4,9 @@ Create custom maps, place obstacles, and configure navigation environments.
 """
 
 import sys
+import warnings
+warnings.filterwarnings("ignore", message=".*use_container_width.*")
+
 import streamlit as st
 import numpy as np
 import plotly.graph_objects as go

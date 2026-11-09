@@ -14,7 +14,6 @@ Controls:
 
 import sys
 import time
-import math
 from pathlib import Path
 
 # Add project root to path

@@ -4,6 +4,9 @@ Voice and text command interface for robot navigation.
 """
 
 import sys
+import warnings
+warnings.filterwarnings("ignore", message=".*use_container_width.*")
+
 import streamlit as st
 import time
 from pathlib import Path

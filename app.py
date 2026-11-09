@@ -3,6 +3,9 @@ NavMind AI - Main Streamlit Application Entry Point
 Voice-Controlled Autonomous Robot Navigation Using Deep Reinforcement Learning
 """
 
+import warnings
+warnings.filterwarnings("ignore", message=".*use_container_width.*")
+
 import streamlit as st
 
 # Page configuration
@@ -72,38 +75,52 @@ def main():
 
     with col1:
         st.markdown("### 🗺️ Quick Actions")
-        if st.button("🚀 Launch Simulator", use_container_width=True):
+        if st.button("🚀 Launch Simulator", width="stretch"):
             st.switch_page("pages/4_Navigation.py")
-        if st.button("🎤 Voice Assistant", use_container_width=True):
+        if st.button("🎤 Voice Assistant", width="stretch"):
             st.switch_page("pages/3_Voice_Assistant.py")
-        if st.button("🧠 Train RL Agent", use_container_width=True):
+        if st.button("🧠 Train RL Agent", width="stretch"):
             st.switch_page("pages/5_RL_Training.py")
 
     with col2:
         st.markdown("### 📊 System Status")
-        try:
-            import torch
+        import importlib.util
 
-            gpu_available = torch.cuda.is_available()
-            if gpu_available:
-                gpu_name = torch.cuda.get_device_name(0)
-                st.success(f"✅ GPU: {gpu_name}")
+        # PyTorch status
+        try:
+            if importlib.util.find_spec("torch") is not None:
+                torch_mod = importlib.import_module("torch")
+                if torch_mod.cuda.is_available():
+                    gpu_name = torch_mod.cuda.get_device_name(0)
+                    st.success(f"✅ GPU: {gpu_name}")
+                else:
+                    st.warning("⚠️ Running on CPU")
             else:
-                st.warning("⚠️ Running on CPU")
-        except ImportError:
-            st.error("❌ PyTorch not installed")
+                st.error("❌ PyTorch not installed")
+        except Exception:
+            st.error("❌ PyTorch error")
 
+        # Gymnasium status
         try:
-            import gymnasium
-            st.success(f"✅ Gymnasium {gymnasium.__version__}")
-        except ImportError:
-            st.error("❌ Gymnasium not installed")
+            if importlib.util.find_spec("gymnasium") is not None:
+                gym_mod = importlib.import_module("gymnasium")
+                ver = getattr(gym_mod, "__version__", "")
+                st.success(f"✅ Gymnasium {ver}".strip())
+            else:
+                st.error("❌ Gymnasium not installed")
+        except Exception:
+            st.error("❌ Gymnasium error")
 
+        # Stable-Baselines3 status
         try:
-            import stable_baselines3
-            st.success(f"✅ SB3 {stable_baselines3.__version__}")
-        except ImportError:
-            st.error("❌ Stable-Baselines3 not installed")
+            if importlib.util.find_spec("stable_baselines3") is not None:
+                sb3_mod = importlib.import_module("stable_baselines3")
+                ver = getattr(sb3_mod, "__version__", "")
+                st.success(f"✅ SB3 {ver}".strip())
+            else:
+                st.info("ℹ️ Stable-Baselines3 optional (for PPO)")
+        except Exception:
+            st.info("ℹ️ Stable-Baselines3 optional")
 
     with col3:
         st.markdown("### 🏆 Project Info")
