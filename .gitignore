@@ -1,0 +1,47 @@
+# Python bytecode
+__pycache__/
+*.py[cod]
+*$py.class
+
+# Environments
+.env
+.venv
+env/
+venv/
+ENV/
+navmind/
+
+# PyTorch / Models
+*.pth
+*.pt
+*.bin
+*.onnx
+models/*.pth
+models/*.zip
+models/intent_classifier/
+models/checkpoints/
+
+# Results & Logs
+results/
+logs/
+*.log
+
+# Audio temp
+*.wav
+*.mp3
+
+# Pygame
+.pygame_sdl2/
+
+# Streamlit
+.streamlit/secrets.toml
+
+# IDE
+.vscode/
+.idea/
+*.swp
+*.swo
+
+# OS
+.DS_Store
+Thumbs.db

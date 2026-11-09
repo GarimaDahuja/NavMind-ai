@@ -1,0 +1,81 @@
+command,intent,destination,speed,constraint,direction
+Go to the charging station,NAVIGATE,charging station,normal,,
+Navigate to the kitchen,NAVIGATE,kitchen,normal,,
+Move to the office,NAVIGATE,office,normal,,
+Reach the destination,NAVIGATE,destination,normal,,
+Take me to the entrance,NAVIGATE,entrance,normal,,
+Move slowly to the office,NAVIGATE,office,slow,,
+Navigate quickly to the goal,NAVIGATE,goal,fast,,
+Go to home position,NAVIGATE,home,normal,,
+Move to charging dock,NAVIGATE,charging station,normal,,
+Head to the center of the room,NAVIGATE,center,normal,,
+Go to the goal area,NAVIGATE,goal,normal,,
+Drive carefully to the kitchen,NAVIGATE,kitchen,slow,,
+Navigate to base camp,NAVIGATE,home,normal,,
+Head towards the exit,NAVIGATE,entrance,normal,,
+Find the charging station and go there,NAVIGATE,charging station,normal,,
+Take me to the office slowly,NAVIGATE,office,slow,,
+Go to destination fast,NAVIGATE,destination,fast,,
+Move quickly to home,NAVIGATE,home,fast,,
+Navigate to center,NAVIGATE,center,normal,,
+Get to the kitchen area,NAVIGATE,kitchen,normal,,
+Stop the robot,STOP,,normal,,
+Halt immediately,STOP,,normal,,
+Freeze,STOP,,normal,,
+Pause navigation,STOP,,normal,,
+Stop moving,STOP,,normal,,
+Emergency stop,STOP,,normal,,
+Hold position,STOP,,normal,,
+Cancel navigation,STOP,,normal,,
+Abort mission,STOP,,normal,,
+Wait here,STOP,,normal,,
+Stay in place,STOP,,normal,,
+Do not move,STOP,,normal,,
+Halt the robot,STOP,,normal,,
+Stop right now,STOP,,normal,,
+Stand by,STOP,,normal,,
+Avoid obstacles,SET_CONSTRAINT,,normal,avoid_obstacles,
+Be careful of obstacles,SET_CONSTRAINT,,slow,avoid_obstacles,
+Navigate safely,SET_CONSTRAINT,,normal,avoid_obstacles,
+Avoid collisions,SET_CONSTRAINT,,normal,avoid_obstacles,
+Move carefully,SET_CONSTRAINT,,slow,avoid_obstacles,
+Watch out for obstacles,SET_CONSTRAINT,,slow,avoid_obstacles,
+Avoid the walls,SET_CONSTRAINT,,normal,avoid_obstacles,
+Navigate with caution,SET_CONSTRAINT,,slow,avoid_obstacles,
+Safe navigation mode,SET_CONSTRAINT,,slow,avoid_obstacles,
+Be cautious around obstacles,SET_CONSTRAINT,,slow,avoid_obstacles,
+Find the shortest route,OPTIMIZE,,normal,,
+Take the fastest path,OPTIMIZE,,fast,,
+Optimize the path,OPTIMIZE,,normal,,
+Find the best route,OPTIMIZE,,normal,,
+Minimize distance,OPTIMIZE,,normal,,
+Find efficient route,OPTIMIZE,,normal,,
+Take shortest path to destination,OPTIMIZE,destination,normal,,
+Find the safest route,OPTIMIZE,,slow,avoid_obstacles,
+Navigate efficiently,OPTIMIZE,,normal,,
+Use the quickest route,OPTIMIZE,,fast,,
+Turn left,DIRECTION,,normal,,left
+Turn right,DIRECTION,,normal,,right
+Go straight,DIRECTION,,normal,,forward
+Move forward,DIRECTION,,normal,,forward
+Go backward,DIRECTION,,normal,,backward
+Rotate left,DIRECTION,,normal,,left
+Rotate right,DIRECTION,,normal,,right
+Face left,DIRECTION,,normal,,left
+Go ahead,DIRECTION,,normal,,forward
+Spin right,DIRECTION,,normal,,right
+Move left,DIRECTION,,normal,,left
+Move right,DIRECTION,,normal,,right
+Turn around,DIRECTION,,normal,,backward
+Go back,DIRECTION,,normal,,backward
+Go forward slowly,DIRECTION,,slow,,forward
+Where are you?,QUERY,,normal,,
+What is your position?,QUERY,,normal,,
+How far is the goal?,QUERY,,normal,,
+What is your status?,QUERY,,normal,,
+Are you at the destination?,QUERY,,normal,,
+Have you reached the goal?,QUERY,,normal,,
+Tell me your position,QUERY,,normal,,
+Report status,QUERY,,normal,,
+How is navigation going?,QUERY,,normal,,
+What is the distance to target?,QUERY,,normal,,

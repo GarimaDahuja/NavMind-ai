@@ -1,0 +1,36 @@
+# NavMind AI - Requirements
+# Core
+numpy>=1.24.0
+pygame>=2.5.0
+gymnasium>=0.29.0
+matplotlib>=3.7.0
+pandas>=2.0.0
+plotly>=5.15.0
+
+# Deep Learning
+torch>=2.0.0
+torchvision>=0.15.0
+torchaudio>=2.0.0
+
+# Reinforcement Learning
+stable-baselines3>=2.1.0
+
+# NLP
+transformers>=4.35.0
+scikit-learn>=1.3.0
+scipy>=1.11.0
+
+# Speech
+openai-whisper>=20231117
+pyttsx3>=2.90
+
+# Web App
+streamlit>=1.28.0
+streamlit-extras>=0.3.0
+
+# Utilities
+tqdm>=4.66.0
+Pillow>=10.0.0
+pyyaml>=6.0
+python-dotenv>=1.0.0
+
