@@ -5,6 +5,9 @@ Live robot navigation visualization with DQN, PPO, and A* agents.
 
 import sys
 import time
+import warnings
+warnings.filterwarnings("ignore", message=".*use_container_width.*")
+
 import numpy as np
 import streamlit as st
 import plotly.graph_objects as go
@@ -48,8 +51,8 @@ with col_stats:
     st.markdown("### 📊 Live Stats")
     stats_placeholder = st.empty()
 
-start_btn = st.button("▶️ Start Simulation", type="primary", use_container_width=True)
-stop_btn = st.button("⏹️ Stop", use_container_width=True)
+start_btn = st.button("▶️ Start Simulation", type="primary", width="stretch")
+stop_btn = st.button("⏹️ Stop", width="stretch")
 
 # ─── Simulation Loop ─────────────────────────────────────────────────────────
 if start_btn:
@@ -237,7 +240,7 @@ if st.session_state.get("sim_running", False):
                 show_sensors=show_sensors,
                 show_path=show_path,
             )
-            sim_placeholder.plotly_chart(fig, use_container_width=True)
+            sim_placeholder.plotly_chart(fig, width="stretch")
 
             # Stats
             dist_to_goal = env.robot.distance_to(env.goal_x, env.goal_y)

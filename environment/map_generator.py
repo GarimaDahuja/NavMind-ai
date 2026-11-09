@@ -3,6 +3,8 @@ NavMind AI - Random Map Generator
 Generates diverse navigation environments for training and testing.
 """
 
+from __future__ import annotations
+
 import math
 import random
 import numpy as np

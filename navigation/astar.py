@@ -3,6 +3,8 @@ NavMind AI - A* Path Planning Algorithm
 Implements A* for optimal path planning as a baseline against RL approaches.
 """
 
+from __future__ import annotations
+
 import math
 import heapq
 import numpy as np
@@ -16,7 +18,7 @@ class AStarNode:
     f_cost: float
     g_cost: float = field(compare=False)
     pos: tuple = field(compare=False)
-    parent: Optional["AStarNode"] = field(compare=False, default=None)
+    parent: Optional[AStarNode] = field(compare=False, default=None)
 
 
 class AStarPlanner:

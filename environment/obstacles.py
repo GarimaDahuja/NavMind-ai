@@ -3,9 +3,10 @@ NavMind AI - Obstacle Management
 Handles static and dynamic obstacles in the navigation environment.
 """
 
+from __future__ import annotations
+
 import math
 import random
-import numpy as np
 from dataclasses import dataclass, field
 from typing import Optional
 

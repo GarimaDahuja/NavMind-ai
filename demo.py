@@ -3,8 +3,9 @@ NavMind AI - Standalone Simulation Demo
 Run this to test the navigation environment without Streamlit.
 """
 
+from __future__ import annotations
+
 import sys
-import math
 import time
 from pathlib import Path
 

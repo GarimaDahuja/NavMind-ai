@@ -2,12 +2,11 @@
 NavMind AI - Path Following Controller
 Converts A* waypoints into discrete robot actions.
 """
+from __future__ import annotations
 
 import math
-from typing import Optional, TYPE_CHECKING
-
-if TYPE_CHECKING:
-    from environment.robot import Robot
+from typing import Optional
+from environment.robot import Robot
 
 
 class PathController:

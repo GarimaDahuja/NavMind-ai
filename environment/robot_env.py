@@ -2,13 +2,19 @@
 NavMind AI - Gymnasium-Compatible Robot Navigation Environment
 Core RL environment implementing the Gymnasium interface.
 """
+from __future__ import annotations
 
 import math
 import random
 import numpy as np
 import gymnasium as gym
 from gymnasium import spaces
-from typing import Optional, Any
+from typing import Optional
+
+try:
+    import pygame  # type: ignore
+except ImportError:
+    pygame = None
 
 from environment.robot import Robot
 from environment.obstacles import ObstacleManager
@@ -280,8 +286,9 @@ class RobotNavEnv(gym.Env):
 
     def _init_pygame(self):
         """Initialize pygame display."""
+        if pygame is None:
+            return
         try:
-            import pygame
             pygame.init()
             if self.render_mode == "human":
                 self._screen = pygame.display.set_mode(
@@ -293,14 +300,14 @@ class RobotNavEnv(gym.Env):
             self._clock = pygame.time.Clock()
             self._font = pygame.font.SysFont("monospace", 14)
             self._pygame_initialized = True
-        except ImportError:
+        except Exception:
             pass
 
     def _draw_frame(self):
         """Draw one frame of the simulation."""
+        if pygame is None or self._screen is None:
+            return None
         try:
-            import pygame
-
             # Background
             self._screen.fill((20, 20, 35))
 
@@ -399,17 +406,12 @@ class RobotNavEnv(gym.Env):
 
     def close(self):
         """Clean up pygame resources."""
-        if self._pygame_initialized:
+        if self._pygame_initialized and pygame is not None:
             try:
-                import pygame
                 pygame.quit()
             except Exception:
                 pass
             self._pygame_initialized = False
-
-
-# Import Robot for HUD
-from environment.robot import Robot
 
 
 # Register environment with Gymnasium
@@ -421,7 +423,7 @@ def register_env():
             entry_point="environment.robot_env:RobotNavEnv",
             max_episode_steps=500,
         )
-    except gym.error.Error:
+    except Exception:
         pass  # Already registered
 
 

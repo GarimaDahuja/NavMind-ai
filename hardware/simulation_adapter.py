@@ -2,9 +2,10 @@
 NavMind AI - Simulation Adapter
 Provides a unified interface between simulation and hardware modes.
 """
+from __future__ import annotations
 
 import numpy as np
-from typing import Optional, Callable
+from typing import Optional
 
 
 class SimulationAdapter:

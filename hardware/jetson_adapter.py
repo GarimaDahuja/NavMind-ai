@@ -10,6 +10,7 @@ Usage (future):
     adapter = JetsonAdapter(serial_port="/dev/ttyUSB0")
     # Then use identically to SimulationAdapter
 """
+from __future__ import annotations
 
 import numpy as np
 from typing import Optional

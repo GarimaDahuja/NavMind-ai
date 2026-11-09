@@ -8,11 +8,11 @@ Perille et al., "Benchmarking Reinforcement Learning Techniques for Autonomous N
 in Challenging Environments", ICRA 2022.
 """
 
-import os
-import math
+from __future__ import annotations
+
 import numpy as np
 from pathlib import Path
-from typing import Optional, Tuple, Dict
+from typing import Optional, Tuple
 from environment.obstacles import Obstacle, ObstacleManager
 
 

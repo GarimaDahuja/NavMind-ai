@@ -2,6 +2,7 @@
 NavMind AI - RL Agent Evaluation
 Evaluates trained DQN, PPO and A* agents under identical conditions.
 """
+from __future__ import annotations
 
 import sys
 import json

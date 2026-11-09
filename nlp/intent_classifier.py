@@ -6,9 +6,9 @@ Approach:
 1. Rule-based classifier (fast, no model needed)
 2. DistilBERT fine-tuned classifier (when model is available)
 """
+from __future__ import annotations
 
 import re
-import json
 import csv
 import numpy as np
 from pathlib import Path
@@ -98,8 +98,8 @@ class DistilBERTClassifier:
     def load(self) -> bool:
         """Attempt to load the fine-tuned model."""
         try:
-            from transformers import DistilBertTokenizerFast, DistilBertForSequenceClassification
-            import torch
+            from transformers import DistilBertTokenizerFast, DistilBertForSequenceClassification  # type: ignore
+            import torch  # type: ignore
             path = Path(self.model_path)
             if not path.exists():
                 return False
@@ -120,14 +120,14 @@ class DistilBERTClassifier:
             epochs: Training epochs
         """
         try:
-            from transformers import (
+            from transformers import (  # type: ignore
                 DistilBertTokenizerFast,
                 DistilBertForSequenceClassification,
                 Trainer,
                 TrainingArguments,
             )
-            import torch
-            from torch.utils.data import Dataset
+            import torch  # type: ignore
+            from torch.utils.data import Dataset  # type: ignore
 
             # Load data
             commands, labels = [], []
@@ -202,7 +202,7 @@ class DistilBERTClassifier:
             return self._fallback.classify(text)
 
         try:
-            import torch
+            import torch  # type: ignore
             inputs = self.tokenizer(
                 text, return_tensors="pt", truncation=True, padding=True, max_length=64
             )

@@ -2,6 +2,7 @@
 NavMind AI - Slot Extractor
 Extracts destination, speed, constraint, and direction slots from commands.
 """
+from __future__ import annotations
 
 import re
 from typing import Optional

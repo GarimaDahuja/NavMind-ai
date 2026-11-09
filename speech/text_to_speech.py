@@ -2,9 +2,9 @@
 NavMind AI - Text to Speech
 Converts navigation responses to speech using pyttsx3.
 """
+from __future__ import annotations
 
 import threading
-from typing import Optional
 
 
 class TextToSpeech:
@@ -50,7 +50,7 @@ class TextToSpeech:
     def initialize(self) -> bool:
         """Initialize pyttsx3 engine. Returns True if successful."""
         try:
-            import pyttsx3
+            import pyttsx3  # type: ignore
             self.engine = pyttsx3.init()
             self.engine.setProperty("rate", self.rate)
             self.engine.setProperty("volume", self.volume)

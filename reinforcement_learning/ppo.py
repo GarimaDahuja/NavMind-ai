@@ -2,11 +2,11 @@
 NavMind AI - PPO Agent (Proximal Policy Optimization)
 Wraps Stable-Baselines3 PPO for the NavMind navigation environment.
 """
+from __future__ import annotations
 
-import os
 import numpy as np
 from pathlib import Path
-from typing import Optional, Callable
+from typing import Optional
 
 
 class PPOAgent:
@@ -75,7 +75,7 @@ class PPOAgent:
 
     def create_env(self, n_envs: int = 1):
         """Create vectorized environment for PPO training."""
-        from stable_baselines3.common.env_util import make_vec_env
+        from stable_baselines3.common.env_util import make_vec_env  # type: ignore
         from environment.robot_env import RobotNavEnv
 
         env = make_vec_env(
@@ -87,8 +87,8 @@ class PPOAgent:
 
     def build_model(self, env=None):
         """Initialize the SB3 PPO model."""
-        from stable_baselines3 import PPO
-        from stable_baselines3.common.callbacks import EvalCallback, CheckpointCallback
+        from stable_baselines3 import PPO  # type: ignore
+        from stable_baselines3.common.callbacks import EvalCallback, CheckpointCallback  # type: ignore
 
         if env is None:
             env = self.create_env()
@@ -120,8 +120,8 @@ class PPOAgent:
             EvalCallback,
             CheckpointCallback,
             CallbackList,
-        )
-        from stable_baselines3.common.monitor import Monitor
+        )  # type: ignore
+        from stable_baselines3.common.monitor import Monitor  # type: ignore
         from environment.robot_env import RobotNavEnv
 
         if self.model is None:
@@ -182,7 +182,7 @@ class PPOAgent:
 
     def load(self, path: str):
         """Load model from path."""
-        from stable_baselines3 import PPO
+        from stable_baselines3 import PPO  # type: ignore
         self.model = PPO.load(path)
         print(f"[PPO] Loaded from {path}")
 

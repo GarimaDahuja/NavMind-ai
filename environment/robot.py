@@ -3,6 +3,8 @@ NavMind AI - Robot Model
 Implements differential-drive robot kinematics and state management.
 """
 
+from __future__ import annotations
+
 import math
 import numpy as np
 

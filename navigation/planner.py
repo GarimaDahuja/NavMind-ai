@@ -2,6 +2,7 @@
 NavMind AI - Navigation Task Planner
 Converts NLP intents into concrete navigation tasks.
 """
+from __future__ import annotations
 
 import math
 from dataclasses import dataclass, field

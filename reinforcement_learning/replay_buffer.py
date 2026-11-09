@@ -2,12 +2,12 @@
 NavMind AI - Experience Replay Buffer
 Implements uniform and prioritized experience replay for DQN.
 """
+from __future__ import annotations
 
 import random
 import numpy as np
 from collections import deque
 from dataclasses import dataclass
-from typing import Optional
 
 
 @dataclass

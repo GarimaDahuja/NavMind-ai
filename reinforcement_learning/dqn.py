@@ -2,6 +2,7 @@
 NavMind AI - Deep Q-Network (DQN) Agent
 Implements DQN with experience replay, target network, and epsilon-greedy exploration.
 """
+from __future__ import annotations
 
 import math
 import random
@@ -23,7 +24,7 @@ class DQNNetwork(nn.Module):
     Output: Q-values for each discrete action (action_dim,)
     """
 
-    def __init__(self, state_dim: int, action_dim: int, hidden_sizes: list[int] = None):
+    def __init__(self, state_dim: int, action_dim: int, hidden_sizes: Optional[list[int]] = None):
         super().__init__()
 
         if hidden_sizes is None:

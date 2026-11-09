@@ -7,22 +7,19 @@ Automates evaluation across the 5 core research questions:
     Q4: Sensor Noise Robustness Evaluation (Noise STD from 0 to 10px)
     Q5: Algorithmic Comparative Benchmark (Success, Collision, Steps, Path Length)
 """
+from __future__ import annotations
 
-import os
 import sys
 import json
 import time
-import numpy as np
 from pathlib import Path
 
 # Add project root
 sys.path.insert(0, str(Path(__file__).parent.parent))
 
-from environment.robot_env import RobotNavEnv
 from environment.barn_loader import BARNLoader
 from navigation.astar import AStarPlanner
 from navigation.controller import PathController
-from reinforcement_learning.dqn import DQNAgent
 from reinforcement_learning.evaluate import evaluate_astar, evaluate_dqn
 
 

@@ -2,9 +2,9 @@
 NavMind AI - Speech to Text
 Converts voice commands to text using OpenAI Whisper Tiny.
 """
+from __future__ import annotations
 
 import os
-import io
 import tempfile
 import numpy as np
 from typing import Optional
@@ -39,7 +39,7 @@ class SpeechToText:
     def load(self) -> bool:
         """Load Whisper model. Returns True if successful."""
         try:
-            import whisper
+            import whisper  # type: ignore
             self.model = whisper.load_model(
                 self.model_size,
                 device=self.device,
@@ -94,7 +94,7 @@ class SpeechToText:
                 return ""
         try:
             # Save to temp WAV file
-            import soundfile as sf
+            import soundfile as sf  # type: ignore
             with tempfile.NamedTemporaryFile(suffix=".wav", delete=False) as tmp:
                 sf.write(tmp.name, audio_array, sample_rate)
                 result = self.transcribe_file(tmp.name)
@@ -120,7 +120,7 @@ class SpeechToText:
             Transcribed text
         """
         try:
-            import sounddevice as sd
+            import sounddevice as sd  # type: ignore
             print(f"[STT] 🎤 Recording for {duration}s...")
             audio = sd.rec(
                 int(duration * sample_rate),

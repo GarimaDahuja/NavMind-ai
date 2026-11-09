@@ -87,7 +87,7 @@ if dqn_results:
                 template="plotly_dark",
                 height=350,
             )
-            st.plotly_chart(fig, use_container_width=True)
+            st.plotly_chart(fig, width="stretch")
 
     with col2:
         # Success rate rolling average
@@ -113,7 +113,7 @@ if dqn_results:
                 template="plotly_dark",
                 height=350,
             )
-            st.plotly_chart(fig2, use_container_width=True)
+            st.plotly_chart(fig2, width="stretch")
 
     # Loss curve
     losses = dqn_results.get("losses", [])
@@ -130,7 +130,7 @@ if dqn_results:
             template="plotly_dark",
             height=250,
         )
-        st.plotly_chart(fig3, use_container_width=True)
+        st.plotly_chart(fig3, width="stretch")
 
 else:
     st.info("📌 No training results found yet. Train a DQN agent first via **RL Training** page.")
@@ -160,7 +160,7 @@ if comparison_path.exists():
             template="plotly_dark",
             height=300,
         )
-        st.plotly_chart(fig, use_container_width=True)
+        st.plotly_chart(fig, width="stretch")
 
 # ─── System Info ─────────────────────────────────────────────────────────────
 st.divider()

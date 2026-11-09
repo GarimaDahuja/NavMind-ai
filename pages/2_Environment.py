@@ -45,7 +45,7 @@ with col1:
     goal_x = st.slider("Goal X", 50, 550, 500)
     goal_y = st.slider("Goal Y", 50, 550, 500)
 
-    generate_btn = st.button("🗺️ Generate Map", use_container_width=True, type="primary")
+    generate_btn = st.button("🗺️ Generate Map", width="stretch", type="primary")
 
     st.divider()
     predefined = st.selectbox(
@@ -62,7 +62,7 @@ with col1:
         ],
         help="Load a predefined test map or official BARN benchmark map"
     )
-    load_predefined = st.button("📂 Load Map", use_container_width=True)
+    load_predefined = st.button("📂 Load Map", width="stretch")
 
 with col2:
     st.markdown("### 🌍 Environment Preview")
@@ -172,12 +172,12 @@ with col2:
             font=dict(size=16, color="gray"),
         )
 
-    st.plotly_chart(fig, use_container_width=True)
+    st.plotly_chart(fig, width="stretch")
 
 # ─── A* Path Preview ─────────────────────────────────────────────────────────
 st.divider()
 st.markdown("### 🗺️ A* Path Preview")
-run_astar = st.button("🔍 Run A* Path Planning", use_container_width=True)
+run_astar = st.button("🔍 Run A* Path Planning", width="stretch")
 
 if run_astar and st.session_state.current_map:
     try:
@@ -228,7 +228,7 @@ if run_astar and st.session_state.current_map:
             x=[map_data["goal_pos"][0]], y=[map_data["goal_pos"][1]],
             mode="markers", marker=dict(size=18, color="limegreen", symbol="star"), name="Goal",
         ))
-        st.plotly_chart(fig2, use_container_width=True)
+        st.plotly_chart(fig2, width="stretch")
 
     except Exception as e:
         st.error(f"A* planning error: {e}")

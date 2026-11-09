@@ -5,6 +5,9 @@ Detailed performance analysis and algorithm comparison.
 
 import sys
 import json
+import warnings
+warnings.filterwarnings("ignore", message=".*use_container_width.*")
+
 import numpy as np
 import streamlit as st
 import plotly.graph_objects as go
@@ -53,7 +56,7 @@ if comparison_data:
             yaxis=dict(range=[0, 110]),
             template="plotly_dark", height=350,
         )
-        st.plotly_chart(fig, use_container_width=True)
+        st.plotly_chart(fig, width="stretch")
 
     with col2:
         collision_vals = [comparison_data[a].get("collision_rate", 0) for a in algorithms]
@@ -68,7 +71,7 @@ if comparison_data:
             yaxis=dict(range=[0, 110]),
             template="plotly_dark", height=350,
         )
-        st.plotly_chart(fig2, use_container_width=True)
+        st.plotly_chart(fig2, width="stretch")
 
     # Steps and Path Length
     col3, col4 = st.columns(2)
@@ -84,7 +87,7 @@ if comparison_data:
             title="🔢 Avg Steps to Goal",
             template="plotly_dark", height=300,
         )
-        st.plotly_chart(fig3, use_container_width=True)
+        st.plotly_chart(fig3, width="stretch")
 
     with col4:
         path_vals = [comparison_data[a].get("avg_path_length", 0) for a in algorithms]
@@ -98,7 +101,7 @@ if comparison_data:
             title="📏 Avg Path Length (px)",
             template="plotly_dark", height=300,
         )
-        st.plotly_chart(fig4, use_container_width=True)
+        st.plotly_chart(fig4, width="stretch")
 
     # Summary table
     st.markdown("### 📋 Summary Table")
@@ -110,7 +113,7 @@ if comparison_data:
         "Avg Path Length": [f"{comparison_data[a].get('avg_path_length', 0):.1f}px" for a in algorithms],
         "Eval Time (s)": [f"{comparison_data[a].get('evaluation_time_s', 0):.1f}s" for a in algorithms],
     }
-    st.dataframe(table_data, use_container_width=True)
+    st.dataframe(table_data, width="stretch")
 
 else:
     st.info("📌 No comparison data found. Run the evaluation to compare algorithms.")
@@ -143,7 +146,7 @@ if dqn_data:
             template="plotly_dark",
         )
         fig.update_layout(height=300)
-        st.plotly_chart(fig, use_container_width=True)
+        st.plotly_chart(fig, width="stretch")
 
     with col2:
         # Cumulative success
@@ -162,7 +165,7 @@ if dqn_data:
             template="plotly_dark",
             height=300,
         )
-        st.plotly_chart(fig2, use_container_width=True)
+        st.plotly_chart(fig2, width="stretch")
 
     # Training phases
     if n >= 100:
@@ -192,7 +195,7 @@ if dqn_data:
                 title="Avg Reward by Training Phase",
                 template="plotly_dark", height=300,
             )
-            st.plotly_chart(fig3, use_container_width=True)
+            st.plotly_chart(fig3, width="stretch")
 
         with col4:
             fig4 = go.Figure(go.Bar(
@@ -207,7 +210,7 @@ if dqn_data:
                 yaxis=dict(range=[0, 110]),
                 template="plotly_dark", height=300,
             )
-            st.plotly_chart(fig4, use_container_width=True)
+            st.plotly_chart(fig4, width="stretch")
 
     # Training summary stats
     st.markdown("### 📊 Training Statistics Summary")

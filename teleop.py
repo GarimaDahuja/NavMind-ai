@@ -12,15 +12,18 @@ Controls:
     ESC / Q    : Quit
 """
 
+from __future__ import annotations
+
 import sys
 import time
+import argparse
 from pathlib import Path
 
 # Add project root to path
 sys.path.insert(0, str(Path(__file__).parent))
 
 try:
-    import pygame
+    import pygame  # type: ignore
 except ImportError:
     print("[Error] Pygame is required for teleoperation. Run: pip install pygame")
     sys.exit(1)
@@ -116,7 +119,6 @@ def run_teleop(difficulty: str = "medium", dynamic: bool = False):
 
 
 if __name__ == "__main__":
-    import argparse
     parser = argparse.ArgumentParser(description="NavMind AI Teleoperation")
     parser.add_argument("--difficulty", default="medium", choices=["easy", "medium", "hard", "dynamic", "maze"])
     parser.add_argument("--dynamic", action="store_true", help="Enable dynamic moving obstacles")

@@ -7,6 +7,9 @@ import sys
 import json
 import time
 import threading
+import warnings
+warnings.filterwarnings("ignore", message=".*use_container_width.*")
+
 import numpy as np
 import streamlit as st
 import plotly.graph_objects as go
@@ -49,7 +52,7 @@ with col_cfg:
     dynamic_obs = st.checkbox("Dynamic Obstacles", value=False)
     sensor_noise = st.slider("Sensor Noise", 0.0, 10.0, 0.0, step=0.5)
 
-    start_training = st.button("🚀 Start Training", type="primary", use_container_width=True)
+    start_training = st.button("🚀 Start Training", type="primary", width="stretch")
     st.markdown("---")
     st.info(
         "💡 **Tip:** Start with DQN on 'easy' for 300 episodes "
@@ -154,7 +157,7 @@ if start_training:
                     template="plotly_dark", height=250,
                     margin=dict(l=40, r=10, t=40, b=40),
                 )
-                reward_chart.plotly_chart(fig_r, use_container_width=True)
+                reward_chart.plotly_chart(fig_r, width="stretch")
 
                 # Success rate chart
                 win2 = max(5, len(success_flags) // 10)
@@ -174,7 +177,7 @@ if start_training:
                     template="plotly_dark", height=250,
                     margin=dict(l=40, r=10, t=40, b=40),
                 )
-                success_chart.plotly_chart(fig_s, use_container_width=True)
+                success_chart.plotly_chart(fig_s, width="stretch")
 
                 # Metrics
                 with metrics_row.container():

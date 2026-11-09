@@ -56,7 +56,7 @@ with col1:
             placeholder="e.g. Navigate to the charging station",
             key="text_command",
         )
-        process_btn = st.button("🚀 Process Command", type="primary", use_container_width=True)
+        process_btn = st.button("🚀 Process Command", type="primary", width="stretch")
 
     else:
         st.info("🎤 Voice recording requires `sounddevice` and `openai-whisper` to be installed.")
@@ -64,9 +64,9 @@ with col1:
 
         col_a, col_b = st.columns(2)
         with col_a:
-            record_btn = st.button("🔴 Record Voice", use_container_width=True, type="primary")
+            record_btn = st.button("🔴 Record Voice", width="stretch", type="primary")
         with col_b:
-            process_btn = st.button("🚀 Process", use_container_width=True)
+            process_btn = st.button("🚀 Process", width="stretch")
 
         if record_btn:
             with st.spinner(f"🎙️ Recording for {duration}s..."):
@@ -101,7 +101,7 @@ with col1:
         "Go home",
     ]
     for cmd in sample_commands:
-        if st.button(cmd, key=f"sample_{cmd}", use_container_width=True):
+        if st.button(cmd, key=f"sample_{cmd}", width="stretch"):
             st.session_state["selected_sample"] = cmd
             command_text = cmd
 
@@ -166,7 +166,7 @@ with col2:
         response_text = task_desc
         st.write(f"*\"{response_text}\"*")
 
-        speak_btn = st.button("🔊 Speak Response", use_container_width=True)
+        speak_btn = st.button("🔊 Speak Response", width="stretch")
         if speak_btn:
             try:
                 tts = load_tts()

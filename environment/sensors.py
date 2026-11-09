@@ -3,12 +3,12 @@ NavMind AI - Distance Sensors & Simulated LiDAR
 Provides sensor models for the navigation environment.
 """
 
+from __future__ import annotations
+
 import math
 import numpy as np
-from typing import TYPE_CHECKING
-
-if TYPE_CHECKING:
-    from environment.obstacles import ObstacleManager
+from typing import Optional
+from environment.obstacles import ObstacleManager
 
 
 class DistanceSensorArray:
@@ -27,7 +27,7 @@ class DistanceSensorArray:
 
     def __init__(
         self,
-        angles: list[float] = None,
+        angles: Optional[list[float]] = None,
         max_range: float = 150.0,
         noise_std: float = 0.0,
     ):
@@ -52,7 +52,7 @@ class DistanceSensorArray:
         robot_x: float,
         robot_y: float,
         robot_theta: float,
-        obstacle_manager: "ObstacleManager",
+        obstacle_manager: ObstacleManager,
     ) -> np.ndarray:
         """
         Update all sensor readings.

@@ -2,6 +2,7 @@
 NavMind AI - Automated Test Suite
 Verifies core functionality across environment, navigation, RL, and NLP modules.
 """
+from __future__ import annotations
 
 import math
 import numpy as np
