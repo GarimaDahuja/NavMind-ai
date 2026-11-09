@@ -50,7 +50,9 @@ def run_teleop(difficulty: str = "medium", dynamic: bool = False):
         max_steps=1000,
     )
 
+    pygame.init()
     obs, info = env.reset()
+    env.render()
     running = True
     clock = pygame.time.Clock()
 
