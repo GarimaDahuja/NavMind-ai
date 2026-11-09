@@ -32,7 +32,8 @@ DIRECTION_KEYWORDS = {
 
 CONSTRAINT_KEYWORDS = {
     "avoid_obstacles": [
-        "avoid obstacles", "avoid collisions", "be careful", "carefully",
+        "avoid obstacles", "avoiding obstacles", "avoid collisions", "avoiding collisions",
+        "avoid", "avoiding", "obstacle avoidance", "be careful", "carefully",
         "cautiously", "safely", "safe mode", "don't hit", "watch out",
         "no collisions", "avoid walls",
     ],

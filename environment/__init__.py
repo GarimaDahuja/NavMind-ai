@@ -4,6 +4,7 @@ from environment.obstacles import Obstacle, ObstacleManager
 from environment.sensors import DistanceSensorArray
 from environment.map_generator import MapGenerator, MapConfig
 from environment.robot_env import RobotNavEnv
+from environment.barn_loader import BARNLoader, BARN_SAMPLE_MAPS
 
 __all__ = [
     "Robot",
@@ -13,5 +14,6 @@ __all__ = [
     "MapGenerator",
     "MapConfig",
     "RobotNavEnv",
+    "BARNLoader",
+    "BARN_SAMPLE_MAPS",
 ]
-

@@ -46,11 +46,20 @@ with col1:
 
     st.divider()
     predefined = st.selectbox(
-        "Predefined Maps",
-        ["Custom", "open_field", "corridor", "cluttered"],
-        help="Load a predefined test map"
+        "Predefined & BARN Maps",
+        [
+            "Custom",
+            "barn_world_001_easy",
+            "barn_world_050_corridor",
+            "barn_world_120_dense_pillars",
+            "barn_world_200_complex_maze",
+            "open_field",
+            "corridor",
+            "cluttered",
+        ],
+        help="Load a predefined test map or official BARN benchmark map"
     )
-    load_predefined = st.button("📂 Load Predefined Map", use_container_width=True)
+    load_predefined = st.button("📂 Load Map", use_container_width=True)
 
 with col2:
     st.markdown("### 🌍 Environment Preview")
@@ -62,11 +71,15 @@ with col2:
         try:
             from environment.map_generator import MapGenerator
             from environment.obstacles import ObstacleManager
+            from environment.barn_loader import BARNLoader, BARN_SAMPLE_MAPS
 
             gen = MapGenerator(600, 600)
             np.random.seed(int(seed))
 
-            if load_predefined and predefined != "Custom":
+            if load_predefined and predefined.startswith("barn_"):
+                loader = BARNLoader(600, 600)
+                manager, robot_pos, goal_p = loader.load_preset(predefined)
+            elif load_predefined and predefined != "Custom":
                 predefined_maps = gen.get_predefined_maps()
                 grid = predefined_maps[predefined]
                 manager = gen.generate_from_grid(grid, cell_size=60)
