@@ -1,5 +1,9 @@
 # 🤖 NavMind AI — Voice-Controlled Autonomous Navigation Simulator
 
+[![NavMind AI CI](https://github.com/GarimaDahuja/NavMind-ai/actions/workflows/ci.yml/badge.svg)](https://github.com/GarimaDahuja/NavMind-ai/actions/workflows/ci.yml)
+[![Python 3.10+](https://img.shields.io/badge/python-3.10%20%7C%203.11%20%7C%203.13-blue.svg)](https://www.python.org/)
+[![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](LICENSE)
+
 > **Deep Reinforcement Learning + Natural Language Processing + Speech Processing**
 > 
 > A software-first autonomous mobile robot navigation system where the robot learns to navigate through environments, avoid obstacles, and reach targets using Reinforcement Learning — controlled by your voice.
@@ -12,12 +16,12 @@ NavMind AI combines three cutting-edge AI disciplines:
 
 | Module | Technology | Purpose |
 |--------|-----------|---------|
-| **Navigation Environment** | Pygame + Gymnasium | 2D robot simulation |
-| **Reinforcement Learning** | DQN, PPO (PyTorch) | Autonomous navigation |
-| **Path Planning** | A* Algorithm | Baseline comparison |
-| **NLP** | DistilBERT | Intent & slot extraction |
-| **Speech** | Whisper Tiny + pyttsx3 | Voice command interface |
-| **Frontend** | Streamlit | Interactive dashboard |
+| **Navigation Environment** | Pygame + Gymnasium + BARN | 2D robot kinematics & benchmark maps |
+| **Reinforcement Learning** | Double Dueling DQN, PPO (PyTorch) | Autonomous obstacle avoidance & navigation |
+| **Path Planning** | 8-Directional A* Algorithm | Optimal classical baseline comparison |
+| **NLP** | DistilBERT + Rule-Based Engine | Intent classification & slot extraction |
+| **Speech** | Whisper Tiny + pyttsx3 | Voice command interface & audio feedback |
+| **Frontend** | Streamlit + Plotly | Interactive multi-page dashboard |
 
 ---
 
@@ -46,12 +50,18 @@ NavMind AI combines three cutting-edge AI disciplines:
                      │
           ┌──────────▼──────────┐
           │   RL Agent          │
-          │   DQN / PPO         │
+          │ Double Dueling DQN  │
           └──────────┬──────────┘
                      │
           ┌──────────▼──────────┐
           │   Robot Environment │
           │   Pygame / Gymnasium│
+          │   BARN Benchmarks   │
+          └──────────┬──────────┘
+                     │
+          ┌──────────▼──────────┐
+          │  Hardware Adapter   │
+          │  NVIDIA Jetson Nano │
           └─────────────────────┘
 ```
 
@@ -61,51 +71,66 @@ NavMind AI combines three cutting-edge AI disciplines:
 
 ```
 NavMind-AI/
+├── .github/workflows/
+│   └── ci.yml                  # GitHub Actions CI automated testing
+├── docs/
+│   ├── PROJECT_REPORT.md       # Comprehensive academic project report
+│   └── PRESENTATION_GUIDE.md   # Presentation script & demo talking points
 ├── app.py                      # Streamlit main entry point
+├── demo.py                     # Headless/render CLI navigation demo
+├── teleop.py                   # Keyboard manual driving (Pygame teleop)
+├── verify.py                   # System & GPU verification check
+│
 ├── pages/
 │   ├── 1_Dashboard.py          # Overview & statistics
-│   ├── 2_Environment.py        # Map editor
+│   ├── 2_Environment.py        # Map editor & BARN benchmark loader
 │   ├── 3_Voice_Assistant.py    # Voice/text command interface
 │   ├── 4_Navigation.py         # Live navigation simulator
-│   ├── 5_RL_Training.py        # Training dashboard
-│   └── 6_Analytics.py          # Performance analytics
+│   ├── 5_RL_Training.py        # In-browser training dashboard
+│   └── 6_Analytics.py          # Performance analytics & comparisons
 │
 ├── environment/
-│   ├── robot_env.py            # Gymnasium environment
-│   ├── robot.py                # Robot model & kinematics
-│   ├── obstacles.py            # Obstacle management
-│   ├── sensors.py              # Distance sensors / LiDAR
-│   └── map_generator.py        # Random map generation
+│   ├── robot_env.py            # Gymnasium environment (NavMind-v0)
+│   ├── robot.py                # Differential-drive robot kinematics
+│   ├── obstacles.py            # Static and dynamic bouncing obstacles
+│   ├── sensors.py              # 5-beam distance sensor / LiDAR ray cast
+│   ├── map_generator.py        # Procedural random map generator
+│   └── barn_loader.py          # ICRA 2022 BARN benchmark dataset loader
 │
 ├── reinforcement_learning/
-│   ├── dqn.py                  # DQN agent (PyTorch)
-│   ├── ppo.py                  # PPO wrapper (SB3)
-│   ├── replay_buffer.py        # Experience replay
-│   ├── train.py                # Training loop
-│   └── evaluate.py             # Evaluation metrics
+│   ├── dqn.py                  # Double Dueling DQN agent (PyTorch)
+│   ├── ppo.py                  # PPO wrapper (Stable-Baselines3)
+│   ├── replay_buffer.py        # Uniform & Prioritized Replay Buffer
+│   ├── train.py                # Training loop with metrics logging
+│   └── evaluate.py             # Evaluation & comparison benchmarks
 │
 ├── navigation/
-│   ├── astar.py                # A* path planning
-│   ├── planner.py              # Navigation task planner
-│   └── controller.py           # Movement controller
+│   ├── astar.py                # 8-directional A* path planner
+│   ├── planner.py              # Task planner resolving NLP to coords
+│   └── controller.py           # Pure-pursuit waypoint follower
 │
 ├── nlp/
-│   ├── intent_classifier.py    # DistilBERT intent classifier
-│   ├── slot_extractor.py       # Slot/entity extraction
-│   └── commands.csv            # Training command dataset
+│   ├── intent_classifier.py    # Hybrid rule + DistilBERT classifier
+│   ├── slot_extractor.py       # Slot entity extraction (destination/speed)
+│   ├── command_data.py         # Intent documentation & samples
+│   └── commands.csv            # 80 annotated navigation commands
 │
 ├── speech/
-│   ├── speech_to_text.py       # Whisper STT
-│   └── text_to_speech.py       # pyttsx3 TTS
+│   ├── speech_to_text.py       # Whisper Tiny speech-to-text
+│   └── text_to_speech.py       # pyttsx3 offline voice synthesis
 │
 ├── hardware/
-│   ├── simulation_adapter.py   # Simulation interface
-│   └── jetson_adapter.py       # Jetson Nano interface (future)
+│   ├── simulation_adapter.py   # Simulation bridge interface
+│   └── jetson_adapter.py       # Jetson Nano hardware bridge scaffold
 │
-├── models/                     # Saved model weights
-├── assets/                     # Images, icons
-├── results/                    # Evaluation results
+├── experiments/
+│   └── run_experiments.py      # Automated runner for 5 research questions
+├── tests/
+│   └── test_all.py             # Automated unit test suite (12 test cases)
+├── models/                     # Saved model checkpoints
+├── results/                    # Exported metrics & evaluation summaries
 ├── requirements.txt
+├── environment.yml
 └── README.md
 ```
 
@@ -113,150 +138,110 @@ NavMind-AI/
 
 ## 🚀 Quick Start
 
-### 1. Create Conda Environment
+### 1. Setup Environment
 ```bash
+# Recommended Conda Environment (Python 3.10 for full RTX 3050 CUDA GPU support):
 conda create -n navmind python=3.10 -y
 conda activate navmind
-```
 
-### 2. Install Dependencies
-```bash
+# Install dependencies:
 pip install -r requirements.txt
 ```
 
-### 3. Verify GPU
+### 2. Verify Installation & Tests
 ```bash
-python -c "import torch; print(torch.cuda.is_available()); print(torch.cuda.get_device_name(0) if torch.cuda.is_available() else 'CPU')"
+# Run system check
+python verify.py
+
+# Run automated test suite (12 unit tests)
+python tests/test_all.py
 ```
 
-### 4. Train the RL Agent
+### 3. Drive the Robot Manually (Keyboard Teleoperation)
 ```bash
-python reinforcement_learning/train.py --algorithm dqn --episodes 1000
+python teleop.py --difficulty medium
 ```
+* **`W` / `Up`**: Move Forward
+* **`A` / `Left`**: Turn Left
+* **`D` / `Right`**: Turn Right
+* **`S` / `Down`**: Stop
+* **`R`**: Reset map
 
-### 5. Launch Streamlit App
+### 4. Run Headless / CLI Simulation
 ```bash
-streamlit run app.py
+# Test classical A* path planning:
+python demo.py --algorithm astar --episodes 3
+
+# Test random exploration:
+python demo.py --algorithm random --episodes 3
+```
+
+### 5. Launch the Streamlit Dashboard
+```bash
+python -m streamlit run app.py
 ```
 
 ---
 
-## 🧠 Reinforcement Learning
+## 🧠 Reinforcement Learning Formulation
 
-### State Space
-$$S_t = [d_g, \theta_g, d_f, d_l, d_r, v, a_{prev}]$$
+### State Space ($\mathcal{S} \subset \mathbb{R}^7$)
+$$S_t = \left[ \frac{d_g}{D_{\max}}, \frac{\theta_g}{\pi}, \frac{s_f}{R_{\max}}, \frac{s_{fl}}{R_{\max}}, \frac{s_{fr}}{R_{\max}}, \frac{s_l}{R_{\max}}, \frac{s_r}{R_{\max}} \right]$$
 
-| Variable | Description |
-|----------|-------------|
-| $d_g$ | Distance to goal |
-| $\theta_g$ | Angle to goal |
-| $d_f$ | Front obstacle distance |
-| $d_l$ | Left obstacle distance |
-| $d_r$ | Right obstacle distance |
-| $v$ | Robot velocity |
-| $a_{prev}$ | Previous action |
+### Action Space ($\mathcal{A}$)
+Discrete movement primitives:
+* `0`: Move Forward
+* `1`: Turn Left ($0.2\text{ rad}$)
+* `2`: Turn Right ($0.2\text{ rad}$)
+* `3`: Stop
 
-### Action Space (Discrete)
-
-| Action | Movement |
-|--------|----------|
-| 0 | Move Forward |
-| 1 | Turn Left |
-| 2 | Turn Right |
-| 3 | Stop |
-
-### Reward Function
-
-| Condition | Reward |
-|-----------|--------|
-| Goal reached | +100 |
-| Collision | -100 |
-| Moves closer to goal | +5 |
-| Moves away from goal | -2 |
-| Normal step | -0.1 |
-| Max steps exceeded | -20 |
+### Potential-Based Dense Reward Function
+$$R(s, a, s') = \begin{cases}
++100.0 & \text{Goal reached } (d_g < 25\text{px}) \\
+-100.0 & \text{Collision detected} \\
++5.0 \times \Delta d_g / 10 & \text{Progress toward target} \\
+-2.0 \times \Delta d_g / 10 & \text{Moving away from target} \\
+-0.1 & \text{Per-step penalty} \\
+-20.0 & \text{Timeout (exceeding maximum steps)}
+\end{cases}$$
 
 ---
 
-## 📊 Algorithm Comparison
+## 🔬 Research Experiments & Benchmarks
 
-| Metric | A* | DQN | PPO |
-|--------|-----|-----|-----|
-| Optimal path | ✅ Static only | ❌ | ❌ |
-| Dynamic obstacles | ❌ | ✅ | ✅ |
-| Training required | ❌ | ✅ | ✅ |
-| Generalizes | ❌ | ✅ | ✅ |
-
----
-
-## 🎤 Voice Commands
-
-| Command | Intent | Extracted Info |
-|---------|--------|---------------|
-| "Navigate to the charging station" | NAVIGATE | Goal: charging station |
-| "Move slowly to the office" | NAVIGATE | Goal: office, Speed: low |
-| "Stop the robot" | STOP | Action: stop |
-| "Avoid obstacles" | SET_CONSTRAINT | Constraint: avoid |
-| "Find shortest route" | OPTIMIZE | Objective: shortest |
-
----
-
-## 🔧 Hardware Extension (Future)
-
-```
-Simulation Mode ──────────────────► Hardware Mode
-─────────────────                   ──────────────
-Simulated LiDAR         →          Physical Distance Sensors
-Virtual robot position  →          Odometry
-Virtual obstacles       →          Camera observations
-Simulated movement      →          Motor commands
-Simulation adapter      →          Jetson Nano adapter
+Run the automated suite to benchmark the 5 core research questions:
+```bash
+python experiments/run_experiments.py
 ```
 
----
-
-## 📈 Research Questions
-
-1. Does DQN outperform A* under dynamic obstacle conditions?
-2. How does obstacle density affect the RL agent's success rate?
-3. Does training on randomized maps improve generalization?
-4. How do different reward functions affect collision avoidance?
-5. How does simulated sensor noise degrade agent performance?
+* **Q1: Dynamic Obstacles:** A* vs. DQN performance in environments with moving hazards.
+* **Q2: Obstacle Density:** Impact of clutter (`easy` vs `medium` vs `hard`).
+* **Q3: Generalization on BARN:** Testing zero-shot navigation on unseen ICRA 2022 BARN benchmark maps.
+* **Q4: Sensor Noise:** Policy degradation under simulated Gaussian sensor noise ($\sigma \in [0, 10\text{px}]$).
 
 ---
 
-## 🗓️ Development Timeline
+## 🎤 Voice & NLP Capabilities
 
-| Week | Milestone |
-|------|-----------|
-| 1 | 2D Environment + Robot Simulation |
-| 2 | Map Generation + A* Baseline |
-| 3–4 | DQN Implementation + Training |
-| 5 | PPO + Algorithm Comparison |
-| 6 | NLP Integration |
-| 7 | Speech Integration |
-| 8 | Streamlit Application |
-| 9–10 | Testing + Deployment |
+| User Command | Intent | Extracted Entities | Action |
+|:---|:---|:---|:---|
+| *"Navigate to the charging station"* | `NAVIGATE` | Goal: `charging station` | Plans path to $(100, 100)$ |
+| *"Move slowly to the office avoiding obstacles"* | `NAVIGATE` | Goal: `office`, Speed: `0.5x`, Constraint: `avoid_obstacles` | Restricts max velocity & avoids hazards |
+| *"Emergency stop immediately"* | `STOP` | Action: `stop` | Halts robot motors immediately |
+| *"Turn left"* | `DIRECTION` | Direction: `left` | Executes heading rotation |
+| *"Find the shortest route"* | `OPTIMIZE` | Objective: `distance` | Executes A* minimum-distance route |
 
 ---
 
-## 📚 References
+## 📄 Documentation
 
-- [DRL Robot Navigation - IR-SIM](https://github.com/reiniscimurs/DRL-robot-navigation-IR-SIM)
-- [Gymnasium Documentation](https://gymnasium.farama.org/)
-- [Stable-Baselines3](https://stable-baselines3.readthedocs.io/)
-- [BARN Dataset](https://www.cs.utexas.edu/~xiao/BARN/BARN.html)
-- [Whisper (OpenAI)](https://huggingface.co/openai/whisper-tiny)
-- [PythonRobotics](https://github.com/AtsushiSakai/PythonRobotics)
+* **[Academic Project Report](docs/PROJECT_REPORT.md)**: Mathematical formulation, Bellman targets, Double Dueling DQN derivation, and experimental analysis.
+* **[Presentation & Demo Guide](docs/PRESENTATION_GUIDE.md)**: 5-minute presentation script, live demo walkthrough, and defense Q&A.
 
 ---
 
 ## 👩‍💻 Author
 
-**Garima Dahuja** — Semester Project  
-NavMind AI — Voice-Controlled Autonomous Robot Navigation Using Deep Reinforcement Learning
-
----
-
-*Built with ❤️ using Python, PyTorch, Streamlit, and Gymnasium*
-
+**Garima Dahuja**  
+NavMind AI — Voice-Controlled Autonomous Robot Navigation Using Deep Reinforcement Learning  
+*GitHub: [@GarimaDahuja](https://github.com/GarimaDahuja)*

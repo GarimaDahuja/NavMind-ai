@@ -223,7 +223,7 @@ def main():
     st.markdown(
         """
         <div style="text-align: center; color: #666; font-size: 0.9rem;">
-            NavMind AI — Built with ❤️ using Python, PyTorch, Streamlit & Gymnasium<br>
+            NavMind AI<br>
             <a href="https://github.com/GarimaDahuja/NavMind-ai" target="_blank">GitHub Repository</a>
         </div>
         """,
